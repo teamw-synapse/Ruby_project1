@@ -1,0 +1,5 @@
+<p>
+  Hello, <br/><br/>
+  Your stock import at Ishka on <%= @process_request.created_at.strftime('%b %d %Y, %I:%M:%S %p') %> has been processed. <br><br>
+  You can download the processed result <%= link_to 'here', @url %>
+</p>

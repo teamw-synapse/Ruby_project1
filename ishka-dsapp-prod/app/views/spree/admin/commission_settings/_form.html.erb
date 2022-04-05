@@ -1,0 +1,67 @@
+<div class="form-group">
+  <% if@commission_setting.new_record? %>
+    <%= f.field_container :commission_type do %>
+      <%= f.label :commission_on %>
+      <%= f.select :commission_type,
+        options_for_select(Spree::CommissionSetting.commission_types.collect { |s| [s.first.titlecase, s.last] }, selected: @commission_setting.commission_type),
+        {}, class: 'select2', id: 'cs_commission_type' %>
+    <% end %>
+
+    <%= f.field_container :commission_value do %>
+      <%= f.label :commission_key_value %>
+      <%= f.select :commission_value,
+        options_for_select([], selected: @commission_setting.commission_value),
+        {}, class: 'select2', id: 'cs_commission_value' %>
+    <% end %>
+  <% end %>
+
+  <%= f.field_container :exclude_tag do %>
+    <%= f.label :exclude_tag %>
+    <%= f.text_field :exclude_tag, class: 'form-control' %>
+  <% end %>
+
+  <%= f.field_container :mode do %>
+    <%= f.label :mode %>
+    <%= f.select :mode,
+      options_for_select(Spree::CommissionSetting.modes.collect { |s| [s.first.titlecase, s.last] }, selected: @commission_setting.mode),
+      {}, class: 'select2', id: 'cs_commission_type' %>
+  <% end %>
+
+  <%= f.field_container :rate do %>
+    <%= f.label :rate %>
+    <%= f.number_field :rate, class: 'form-control', step: :any %>
+  <% end %>
+
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :status %>
+      <%= f.label :status, 'Active' %>
+    </label>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    $('#cs_commission_type').change(function() {
+      $.ajax({
+       url: "<%= qualifying_values_admin_commission_settings_url(vendor_id: @vendor.id) %>", // this will be routed
+       type: 'GET',
+       async: true,
+       data: { key: $(this).val() },
+       dataType: "json",
+       error: function(XMLHttpRequest, errorTextStatus, error){
+                  alert("Failed: "+ errorTextStatus+" ;"+error);
+              },
+       success: function(data){
+          // here we iterate the json result
+          $("#cs_commission_value option").remove();
+          for(var i in data)
+          {
+            $("#cs_commission_value").append(new Option(data[i], data[i]));
+          }
+       }
+      });
+    });
+  });
+</script>

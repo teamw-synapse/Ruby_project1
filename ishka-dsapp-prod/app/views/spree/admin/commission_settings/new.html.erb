@@ -1,0 +1,17 @@
+<% content_for :page_title do %>
+  <%= link_to plural_resource_name(Spree::CommissionSetting), spree.admin_commission_settings_url %> /
+  New Commission Setting for <%= @vendor.name.titlecase %>
+<% end %>
+
+<div class="col-md-6">
+  <%= form_for [:admin, @commission_setting] do |f| %>
+    <fieldset>
+      <%= render partial: 'form', locals: { f: f } %>
+      <div class="form-actions" data-hook="buttons">
+        <%= f.submit 'Create', class: 'btn btn-primary btn-success', data: {'disable-with': 'Saving...'} %>
+        <span class="or">or</span>
+        <%= link_to '<span class="icon icon-remove"></span> Cancel'.html_safe, admin_commission_settings_url, class: 'btn btn-default' %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

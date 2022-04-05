@@ -1,0 +1,4 @@
+sku,location_name,active,count_on_hand,backorderable
+dm001,Warehousec,TRUE,40,FALSE
+dm001,Warehouseb,TRUE,70,FALSE
+dm001,Warehousea,TRUE,50,FALSE

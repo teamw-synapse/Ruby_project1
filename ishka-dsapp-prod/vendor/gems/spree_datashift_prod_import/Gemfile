@@ -1,0 +1,15 @@
+source 'https://rubygems.org'
+
+### SPREE EXTENSIONS ###
+gem 'spree', path: 'vendor/gems/spree'
+gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: 'master'
+
+### RUBY GEMS ###
+gem 'datashift', path: 'vendor/gems/datashift'
+gem 'datashift_spree', path: 'vendor/gems/datashift_spree'
+
+group :test do
+  gem 'rails-controller-testing'
+end
+
+gemspec

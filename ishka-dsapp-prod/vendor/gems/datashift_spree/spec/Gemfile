@@ -1,0 +1,60 @@
+source 'https://rubygems.org'
+
+
+gem "datashift_spree", path: '..'
+
+gem 'datashift', :git => 'https://github.com/autotelik/datashift.git', branch: :master
+
+# This Gemfile is for TESTING really. 
+
+# DEFINE VERSIONS YOU WANT TO TEST AGAINST HERE
+# THIS SHOULD BASICALLY REPLICATE WHAT IS IN THE SANDBOX GEMFILE
+
+# N.B Spree will update the sandbox Gemfile with additional Spree gems
+# e,g User model and Authorisation
+# For rspec you  may need to add them in here or you'll get missing Spree constants
+# TODO - update  sandbox code so it automatically adds Spree gems in here
+
+spree_version = '3-1-stable'
+
+gem 'spree', github: 'spree/spree', branch: spree_version
+gem 'spree_auth_devise', :git => 'https://github.com/spree/spree_auth_devise.git', branch: spree_version
+gem 'spree_gateway', :git => 'https://github.com/spree/spree_gateway.git', :branch => spree_version
+gem 'spree_digital', github: 'spree-contrib/spree_digital', :branch => spree_version
+
+#gem 'spree_bootstrap_frontend', github: '200Creative/spree_bootstrap_frontend', branch: spree_version
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', platforms: :ruby
+gem 'mechanize'
+
+gem 'database_cleaner'
+gem 'coffee-rails'
+gem 'sass-rails'
+
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+end
+
+# we want to test both JRuby and non JRuby especially for Excel
+
+platform :jruby do
+  gem 'jruby-openssl'
+  gem 'activerecord-jdbcsqlite3-adapter'
+end
+
+platform :ruby do
+  gem 'sqlite3'
+end
+
+# STATIC GEMS
+
+gem 'rspec'  # Behavior Driven Development (BDD) for Ruby
+gem 'rspec-core'  # RSpec runner and example groups.
+gem 'rspec-expectations'  # RSpec matchers for should and should_not.
+gem 'rspec-mocks'  # RSpec test double framework with stubbing and mocking.
+gem 'rspec-rails'  # RSpec version 2.x for Rails version 3.x.
+
+

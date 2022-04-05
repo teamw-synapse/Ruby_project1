@@ -1,0 +1,11 @@
+# config/chewy.yml
+# separate environment configs
+test:
+  host: 'localhost:9250'
+  prefix: 'test'
+development:
+  host: <%= Rails.application.credentials[Rails.env.to_sym][:ES_HOST] %>
+staging:
+  host: <%= Rails.application.credentials[Rails.env.to_sym][:ES_HOST] %>
+production:
+  host: <%= Rails.application.credentials[Rails.env.to_sym][:ES_HOST] %>

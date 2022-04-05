@@ -1,0 +1,43 @@
+<% content_for :page_title do %>
+  <%= @vendor.name.titlecase %>'s Commission Settings
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to 'Add Setting', new_admin_commission_setting_path(vendor_id: @vendor), { class: "btn-success", icon: 'add', id: 'admin_new_vendor' } %>
+<% end if can?(:create, Spree::Vendor) %>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <th>Commission On </th>
+        <th>Commssion Key</th>
+        <th>Rate</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <% if @settings.present? %>
+          <% @settings.each do |setting| %>
+            <tr>
+              <td><%= setting.commission_type %></td>
+              <td><%= setting.commission_value %></td>
+              <td><%= setting.rate %>%</td>
+              <td><%= setting.status ? 'Active' : 'Disabled' %></td>
+              <td><%= link_to '<span class="icon icon-pencil"/>'.html_safe, edit_admin_commission_setting_path(id: setting.id, vendor_id: @vendor.slug),
+                                                                        class: 'btn btn-success btn-sm icon-link with-tip action-edit no-text',
+                                                                        'data-original-title': 'Edit' if can?(:edit, @vendor)  %>
+                  <%= link_to '<span class="icon icon-delete"/>'.html_safe, admin_commission_setting_path(id: setting.id, vendor_id: @vendor.slug),
+                                                                            class: 'btn btn-danger btn-sm icon-link with-tip action-edit no-text',
+                                                                            'data-original-title': 'Delete', method: :delete, data: { confirm: 'Are you sure?' } if can?(:edit, @vendor)  %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <% if !@settings.present? %>
+      None found for <%= @vendor.name.titlecase %> Click <%= link_to 'here', new_admin_commission_setting_path(vendor_id: @vendor) %> to add one :)
+    <% end %>
+  </div>
+</div>

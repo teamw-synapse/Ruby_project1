@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  request_data: 
+  order_synced: false
+  references: MyString
+  order: MyString
+
+two:
+  request_data: 
+  order_synced: false
+  references: MyString
+  order: MyString
